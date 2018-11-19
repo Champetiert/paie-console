@@ -1,21 +1,25 @@
 package dev.paie.ihm;
 
-import dev.paie.service.CotisationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import dev.paie.service.CotisationService;
+import dev.paie.service.CotisationServiceMemoire;
+
+@Controller
 public class ListerCotisationsOptionMenu extends OptionMenu {
 
-	private CotisationService cotisService;
+	@Autowired private CotisationService cotisService;
 
-	public ListerCotisationsOptionMenu(CotisationService cotisService) {
+	public ListerCotisationsOptionMenu() {
 		super("Lister les cotisations");
-		this.cotisService = cotisService;
 	}
 
 	@Override
 	public void executer() {
 		System.out.println("Listage en cours");
-		this.cotisService.lister().forEach(cotis -> System.out.println(cotis.getCode()));
-		
+		this.cotisService.lister().forEach(cotis -> System.out.println(cotis.getCode()+" "+cotis.getLibelle()+" "+cotis.getImposable()));
+
 	}
 
 }
